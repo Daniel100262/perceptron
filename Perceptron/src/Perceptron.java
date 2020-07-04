@@ -25,8 +25,8 @@ public class Perceptron {
             }
         }
 
-        double[] netPj = new double[N_Ocultos];
-        double[] oPj = new double[N_Ocultos + 1];
+        double[] entradaRede = new double[N_Ocultos];
+        double[] saidaOculta = new double[N_Ocultos + 1];
         double[] netPk = new double[N_Saida];
         double[] oPk = new double[N_Saida];
         double[] eP = new double[4];
@@ -49,18 +49,18 @@ public class Perceptron {
 
             for (int p = 0; p < 4; p++) {
                 for (j = 0; j < N_Ocultos; j++) { //sempre 0 ou 1
-                    netPj[j] = 0; 
+                    entradaRede[j] = 0; 
                     for (int i = 0; i < N_Entrada + 1; i++) {
-                        netPj[j] = netPj[j] + wJi[j][i] * X[p][i]; //USA X
+                        entradaRede[j] = entradaRede[j] + wJi[j][i] * X[p][i]; //USA X
                     }
-                    oPj[j] = 1 / (1 + Math.exp(-netPj[j]));
+                    saidaOculta[j] = 1 / (1 + Math.exp(-entradaRede[j]));
                 }
-                oPj[N_Ocultos] = -1;        // Configure para aprender o limite do nó de saída
+                saidaOculta[N_Ocultos] = -1;        // Configure para aprender o limite do nó de saída
 
                 for (int k = 0; k < N_Saida; k++) {
                     netPk[k] = 0;
                     for (j = 0; j < N_Ocultos + 1; j++) {
-                        netPk[k] = netPk[k] + wKj[k][j] * oPj[j];
+                        netPk[k] = netPk[k] + wKj[k][j] * saidaOculta[j];
                     }
                     oPk[k] = 1 / (1 + Math.exp(-netPk[k]));
                 }
@@ -76,13 +76,13 @@ public class Perceptron {
                 for (j = 0; j < N_Ocultos; j++) {
                     deltaPj[j] = 0;
                     for (int k = 0; k < N_Saida; k++) {
-                        deltaPj[j] = deltaPj[j] + deltaPk[k] * wKj[k][j] * oPj[j] * (1 - oPj[j]);
+                        deltaPj[j] = deltaPj[j] + deltaPk[k] * wKj[k][j] * saidaOculta[j] * (1 - saidaOculta[j]);
                     }
                 }
 
                 for (int k = 0; k < N_Saida; k++) {
                     for (j = 0; j < N_Ocultos + 1; j++) {
-                        wKj[k][j] = wKj[k][j] + TX_Aprendizado * deltaPk[k] * oPj[j];
+                        wKj[k][j] = wKj[k][j] + TX_Aprendizado * deltaPk[k] * saidaOculta[j];
                     }
                 }
 
