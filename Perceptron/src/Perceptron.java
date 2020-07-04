@@ -95,8 +95,8 @@ public class Perceptron {
             System.out.println("Count : " + contador + " / Alteração no erro: " + Custo);
         }
         System.out.println();
-        System.out.println("Peso do perceptron para aprender a operação do XOR corretamente ");
-        System.out.println("========== w_ij output (peso da conexão entre a camada oculta e a camada de entrada) ==========");
+        System.out.println("Peso do perceptron para aprender a operação do XOR corretamente\n");
+        System.out.println("========== Saida do w_ij (peso da conexão entre a camada oculta e a camada de entrada) ==========");
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print("w" + i + "" + j + " = " + wJi[i][j] + " / ");
@@ -104,7 +104,7 @@ public class Perceptron {
         }
 
         System.out.println();
-        System.out.println("========== saída w_jk (peso da conexão entre a camada oculta e a camada de saída) ==========");
+        System.out.println("========== Saida w_jk (peso da conexão entre a camada oculta e a camada de saída) ==========");
 
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 3; j++) {
